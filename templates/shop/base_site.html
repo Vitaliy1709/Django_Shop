@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Online Story - Mobil</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+  <!-- Custom styles for this template -->
+<!--  <link href="css/shop-homepage.css" rel="stylesheet">-->
+
+</head>
+<style>
+    body {
+        padding-top: 56px;
+    }
+</style>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'index' %}">Online Story</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+              aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'index' %}">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'product_detail' %}">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'create' %}">Create review</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'feedback' %}">Feedback</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'cart' %}">Cart<span class="badge badge-pill badge-danger">{{ cart.product.count }}</span> </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-lg-3">
+
+        <h1 class="my-4">
+          <g-img class="ivg-i PZPZlf" data-docid="JSbuyKrc2iy6HM:" data-lpage="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Mobil_logo.svg/1280px-Mobil_logo.svg.png" data-tsourceid="6" data-attrid="image" jsaction="trigger.PdWSXe" data-ved="2ahUKEwj5yJnHtfXsAhVT5uAKHVpwCGUQxfoBMA16BAgbEAM"><img id="wp_thbn_13" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJcAAAAuCAMAAAAShHv2AAAAnFBMVEX///8Aa7btGy0AYbIAarYAaLUAZbT4+/2DqNIbbbdDg8C4zORLh8IAY7MAXrHsAADsABgAW7Axe73x9frsAB3tFCjq8PfC0+j++PjsABH+8/P84+T3s7XV4O5YjMSlvdx7oc72pKhrl8rwV170kJTyen6at9nuMz+OrtUec7rxa3LtLTbxYWn1naD71tjuPEf6y83zhYrvSFP4vsHXXo2hAAAE0klEQVRYhc2YDXOiPBDHAyTBFkEQ8KWKKIpvra29+/7f7UFgk02AFuaem952OqPJhvzMJv/dQAxsbEM02zDUzUd6d6fZT7QaYzkD3BwLpiIKF2WhNo7Tf4HL8ObquLmHe3+Oi2/VcRn/N7iopY57wmH8QS7DS/CwRAnjT3LxMx424mrnz3HRKR6mQ///XAajpXnfcBnBTI6aBX+da1rbZf4Nl5vKUUf3b3Np9gUXG0u3MVP7fpILSX7oaX0NrtXu+vH6+np6u71/zZWk281mM0oTovuBdXLB2kjJBy9K27l2H5MojmOz+I8mr4dFJ1d6CVzOGONucDmHqhuj5V/nvmdZDSYlH3L2dExbuNZLPzalFWi3Vq55wl2pzpQHI1txq6xTJ1yHw0gYU68THwEg4nrZL03d/NOqycXGYi5YdSNpunVyWXPY5SD5kLPdeZNrFUcNrGLN/HtjQkPJZFWL5wzhSmtVAMnf1gvo2WOda6WEENnk3uBqs8Dpz+XM6vUBya9Lr+KrzvVidmAVYKs+XEaQ9OciFxhUSj7kbH5scO3bgliH8tSLiz7Z/bmg2LJKyT9DGBOda423fBz5EV49/9DGRblbKAVqckf9uaC1kvxpPeKJ6Fxotfz4ulvvchORLlcNLurSLHXSzECCYc16c4UB/LhQ5myW6Vw7XzLcajHdyYMQfepc1DrWUUslWCWTvbjIMyhFIfmpJdtVro9YXZrqhMqjEOlcXJYoMxnLoD/XkcvfItQs1LhWE4GFk+JKrOLyrnJ5qHIiM5FzrXlvLjiCheSHtUqwZ6JxrQEgOhBsIrxlICWXdVTcRO1UPqwfF4FmK5nXH0uRVbhyCJj/okxIYO/HezwhpbbiZcMWK+/QPblE7j5ucVJSuH7VXPGbikVycU7xhI0rPMxBL/25RGXzLPyJzvUa43PXFsglnpAfNbejqA/s3lwzCD6UXA+V0LjEsbtpE4qNN1G4Us0N0rDh9ucSYqq2KlynrvW6QRx9heusuYn1YgO4zuqF0XBnDa497K+9NuEVOk6YC98XCH7YkP2lX7Dr0kLh+oRlQar6sAXoWnkgpE7wmeIWwtRDzqP2XgmCoOoX6EGUKxMegLfUNcS1VdzEFb58dl8ucYorq8skhetF5OjlGs13V9MA1nt8U5uLq3KpQL25UnyVpYbd5BIbrDh4Euy3SEOxSVQuDOZYorx2yRAu5epfqYTO9VsWNctrtcdWuVgt07/pXIaXVXtslnmi1T0P4iJPiMt12riEUjwWZ2JeP/PTBFWG8aLBZbDgkm2zSyA3CXXDYVz41VIQtnLJrfTAiIu7Lfpex7ZRRzOuHKk6m/fnQm9US4Vp4SK5b3ZZVKvaN/U9m5KBXEgphFQ37mm/ui4esbnoxeWFQ7nQSxwr6eJafLSDxSZo7ZdcVDx5AFcqc7fdxUUW+7ZQRidRkkku1gBkLGm4fc8llAJUoo2rkPeJfreNJ1fZjeqJqZpzqfccNt0aXKw2KX6XRsuYVy0ufp+z2k8iherXHfXahnxKFog1o8y7OB1uDy4PcMhzbVPx2us8rVtEws3AR63x3vN46T/egEX+Mn67K332GD03ybjncu5aHts43W6FGEwBh/yZva8PeZ4fdu+Lr/3CxEmPqZPYX7tJ+w9NMF+fl3SbPgAAAABJRU5ErkJggg==" class="rISBZc M4dUYb" height="46" width="151" alt="" data-atf="1"></g-img>
+        </h1>
+        <div class="list-group">
+
+          <a href="{% url 'category_detail' %}" class="list-group-item">Light motor vehicles</a>
+<!--          <a href="{{ category.url }}" class="list-group-item">{{ category.name }}Commercial vehicles</a>-->
+
+          <a href="#" class="list-group-item">Blog</a>
+<!--          {% for category in categories %}-->
+<!--          <a href="#" class="list-group-item">{{ category.name }} ({{ category.count }})</a>-->
+<!--          {% endfor %}-->
+
+        </div>
+
+      </div>
+      <!-- /.col-lg-3 -->
+
+      <div class="col-lg-9">
+
+        {% block content %}
+
+        {% if messages %}
+            {% for message in messages %}
+
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                  <span area-hidden="true">×</span>
+                </button>
+              </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+        <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+
+        <div class="row">
+
+          {% for product in products %}
+
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+              <a href="{{ product.slug }}"><img class="card-img-top" src="{{ product.image.url }}" alt=""></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                </h4>
+                <h5>{{ product.price }} грн.</h5>
+
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+
+            </div>
+          </div>
+
+        </div>
+        <!-- /.row -->
+
+      {% endblock content %}
+
+      </div>
+      <!-- /.col-lg-9 -->
+
+
+  <!-- Footer -->
+  <footer class="py-2 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Your Website 2020</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+          integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+          integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+</body>

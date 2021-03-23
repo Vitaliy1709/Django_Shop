@@ -1,0 +1,20 @@
+{% extends "shop/base_site.html" %}
+
+{% block content %}
+
+<div class="col-md-8">
+        <h3>Blog:</h3><br>
+        {% if tasks %}
+            {% for el in tasks %}
+                <div class="alert alert-warning mt-2">
+                    <h4> {{ el.title }} </h4>
+                    <p> {{ el.tasks }} </p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h5>There are no tasks yet.</h5>
+
+        {% endif %}
+</div>
+
+{% endblock content %}

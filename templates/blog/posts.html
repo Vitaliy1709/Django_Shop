@@ -1,0 +1,21 @@
+{% extends "shop/base_site.html" %}
+{% load static %}
+{% block content %}
+
+<div class="col-md-8">
+        <h3>Blog:</h3><br>
+    {% if title %}
+            {% for el in title %}
+                <div class="alert alert-warning mt-2">
+                    <h4> {{ el.title }} </h4>
+                    <p> {{ el.h1 }} </p>
+                </div>
+            {% endfor %}
+    {% else %}
+        <h5>There are no blog yet.</h5>
+
+    {% endif %}
+
+</div>
+
+{% endblock content %}

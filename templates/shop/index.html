@@ -1,0 +1,27 @@
+
+{% extends "shop/base_site.html" %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'shop/style.css' %}">
+
+
+<div>
+        {% if products %}
+            {% for product in products %}
+        <h4>
+        <li><a href="{% url 'product_detail' %}">{{ product.title }}</a></li>
+        </h4>
+        <h5>{{ product.title }}</h5>
+        <a href="{% url 'add_to_cart' slug=product.slug %}"></a>
+            <button class="btn btn-danger">Добавить в корзину</button>
+            {% endfor %}
+
+    {% else %}
+    <p>No shop are available.</p>
+    {% endif %}
+
+</div>
+
+{% endblock content %}
+

@@ -1,0 +1,29 @@
+{% extends "admin/change_form.html" %}
+{% load static %}
+
+{% block admin_change_form_document_ready %}
+{{ block.super }}
+<script>
+(function($) {
+    $("#id_brand").css("background", "lightgray")
+    $("#id_year_of_issue").css("background", "lightgray")
+    $("#id_under_a_specific_brand").on("click", function(){
+        if($("#id_under_a_specific_brand").prop("checked") == true){
+            $("#id_brand").prop("readonly", false)
+            $("#id_year_of_issue").prop("readonly", false)
+            $("#id_brand").val("")
+            $("#id_year_of_issue").val("")
+            $("#id_brand").css("background", "white")
+            $("#id_year_of_issue").css("background", "white")
+        }else{
+            $("#id_brand").prop("readonly", true)
+            $("#id_year_of_issue").prop("readonly", true)
+            $("#id_brand").val("")
+            $("#id_year_of_issue").val("")
+            $("#id_brand").css("background", "lightgray")
+            $("#id_year_of_issue").css("background", "lightgray")
+            }
+        })
+})(django.jQuery);
+</script>
+{% endblock %}
